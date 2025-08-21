@@ -20,6 +20,8 @@ export const metadata = {
 };
 
 export default function RootLayout({ children }) {
+  const test = process.env.JS_KEY;
+  console.log(test);
   return (
     <html lang="en" suppressHydrationWarning>
       <AuthProvider>
