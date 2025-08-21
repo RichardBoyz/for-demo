@@ -9,8 +9,6 @@ export const initializeParse = () => {
   if (Parse.applicationId && Parse.applicationId == APPLICATION_ID) {
     return;
   }
-  console.log(APPLICATION_ID);
-  console.log(JS_KEY);
 
   Parse.initialize(APPLICATION_ID, JS_KEY);
   Parse.serverURL = SERVER_URL;

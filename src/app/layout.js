@@ -1,6 +1,7 @@
 import { Header, Page } from "@/components";
 
 import { AuthProvider } from "@/providers/AuthContext";
+import { ParseProvider } from "@/providers/ParseContext";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 
@@ -20,16 +21,16 @@ export const metadata = {
 };
 
 export default function RootLayout({ children }) {
-  const test = process.env.JS_KEY;
-  console.log(test);
   return (
     <html lang="en" suppressHydrationWarning>
-      <AuthProvider>
-        <body className={`${geistSans.variable} ${geistMono.variable}`}>
-          <Header />
-          <Page>{children}</Page>
-        </body>
-      </AuthProvider>
+      <body className={`${geistSans.variable} ${geistMono.variable}`}>
+        <ParseProvider>
+          <AuthProvider>
+            <Header />
+            <Page>{children}</Page>
+          </AuthProvider>
+        </ParseProvider>
+      </body>
     </html>
   );
 }

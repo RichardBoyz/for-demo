@@ -2,14 +2,17 @@
 import { handleLogin, handleLogout } from "@/services/auth";
 import Parse from "parse";
 import { createContext, useEffect, useState } from "react";
+import { useParseClient } from "./ParseContext";
 
 export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
+  const { isInitialized } = useParseClient();
   const [user, setUser] = useState(null);
   const [isAuthenticating, setIsAuthenticating] = useState(true);
 
   useEffect(() => {
+    if (!isInitialized) return;
     // 檢查本地儲存的 session token
     const sessionToken = localStorage.getItem("sessionToken");
 
@@ -28,7 +31,7 @@ export const AuthProvider = ({ children }) => {
     } else {
       setIsAuthenticating(false);
     }
-  }, []);
+  }, [isInitialized]);
 
   const login = async (email, password) => {
     try {
