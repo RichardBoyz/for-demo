@@ -1,3 +1,11 @@
+"use client";
+import HomePage from "@/features/home-page/pages/HomePage";
+import { initializeParse } from "@/lib/parse";
+import { useEffect } from "react";
+
 export default function Home() {
-  return <div className="">hi</div>;
+  useEffect(() => {
+    initializeParse();
+  }, []);
+  return <HomePage />;
 }

@@ -1,8 +1,13 @@
-@import "tailwindcss";
-
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  --header-bg: rgba(255, 255, 255, 0.6);
+  --header-height: 80px;
+  --nav-drawer-bg: #e4e4e4;
+  --icon-color: black;
 }
 
 @theme inline {
@@ -12,15 +17,21 @@
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+.dark {
+  --background: #0a0a0a;
+  --foreground: #ededed;
+  --header-bg: rgba(28, 65, 184, 0.434);
+  --header-height: 80px;
+  --nav-drawer-bg: #021a6f;
+  --icon-color: white;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+  margin: unset;
+  transition:
+    background-color 0.3s ease-in-out,
+    color 0.3s ease-in-out;
 }
