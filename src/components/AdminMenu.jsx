@@ -1,8 +1,10 @@
 "use client";
+import useNavigate from "@/hooks/useNavigate";
 import { Menu, MenuItem } from "@mui/material";
 import { useState } from "react";
 
 const AdminMenu = () => {
+  const { navigateTo } = useNavigate();
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -10,6 +12,11 @@ const AdminMenu = () => {
   };
   const handleClose = () => {
     setAnchorEl(null);
+  };
+
+  const handleNavigate = (path) => {
+    handleClose();
+    navigateTo(path);
   };
 
   return (
@@ -35,8 +42,10 @@ const AdminMenu = () => {
           },
         }}
       >
-        <MenuItem onClick={handleClose}>新增旅店</MenuItem>
-        <MenuItem onClick={handleClose}>新增新聞</MenuItem>
+        <MenuItem onClick={() => handleNavigate("add-travel-spot")}>
+          新增景點
+        </MenuItem>
+        <MenuItem onClick={() => handleNavigate("add-room")}>新增房間</MenuItem>
       </Menu>
     </div>
   );

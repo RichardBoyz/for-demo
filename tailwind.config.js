@@ -14,6 +14,7 @@ module.exports = {
       colors: {
         "header-bg": "var(--header-bg)",
         "icon-color": "var(--icon-color)",
+        "form-bg": "var(--form-bg)",
       },
     },
   },

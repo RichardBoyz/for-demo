@@ -1,4 +1,6 @@
 "use client";
+import useNavigate from "@/hooks/useNavigate";
+import { AuthContext } from "@/providers/AuthContext";
 import {
   Drawer,
   List,
@@ -7,7 +9,7 @@ import {
   useMediaQuery,
   useTheme,
 } from "@mui/material";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { IoClose, IoMenu } from "react-icons/io5";
 import { ThemeToggle } from ".";
 import AdminMenu from "./AdminMenu";
@@ -16,7 +18,7 @@ import UserSettings from "./UserSettings";
 const tabs = [
   {
     name: "旅遊趣",
-    href: "/",
+    href: "/travel-spot",
   },
   {
     name: "電話簿",
@@ -29,24 +31,32 @@ const tabs = [
 ];
 
 const Header = () => {
+  const { navigateTo } = useNavigate();
+  const { user } = useContext(AuthContext);
   const [open, setOpen] = useState(false);
   const theme = useTheme();
   const isMdUp = useMediaQuery(theme.breakpoints.up("md"));
-  const toggleDrawer = (open) => () => {
+  const toggleDrawer = (open) => {
     setOpen(open);
+  };
+  const handleNavigate = (path) => {
+    console.log(path);
+    toggleDrawer(false);
+    navigateTo(path);
   };
 
   useEffect(() => {
     if (isMdUp && open) {
-      toggleDrawer(false)();
+      toggleDrawer(false);
     }
   }, [isMdUp, open]);
 
   return (
-    <div className="flex items-center justify-between px-4 bg-header-bg shadow-sm fixed top-0 left-0 h-header-height w-full font-bold">
+    <div className="z-10 flex items-center justify-between px-4 bg-header-bg shadow-sm fixed top-0 left-0 h-header-height w-full font-bold">
       <img
+        onClick={() => navigateTo("/")}
         src="https://play-lh.googleusercontent.com/3r3ZmMv0cAsqx0k0Nc0ZlFC7Vnmtj8bxRXNC06yKdjXDzfKOgoRkplpdGf2ADHvTfg=w240-h480-rw"
-        className="h-3/5 aspect-square object-cover object-center"
+        className="cursor-pointer h-3/5 aspect-square object-cover object-center"
       />
 
       <div className="hidden gap-2 items-center md:flex">
@@ -59,7 +69,7 @@ const Header = () => {
             {tab.name}
           </a>
         ))}
-        <AdminMenu />
+        {user && <AdminMenu />}
 
         <ThemeToggle />
         <UserSettings />
@@ -67,7 +77,7 @@ const Header = () => {
 
       <div className="md:hidden">
         <button className="px-4 py-2">
-          <IoMenu size={36} onClick={toggleDrawer(true)} />
+          <IoMenu size={36} onClick={() => toggleDrawer(true)} />
         </button>
         <Drawer
           open={open}
@@ -79,7 +89,7 @@ const Header = () => {
               },
             },
           }}
-          onClose={toggleDrawer(false)}
+          onClose={() => toggleDrawer(false)}
         >
           <List
             subheader={
@@ -92,7 +102,7 @@ const Header = () => {
                   <IoClose
                     className="cursor-pointer text-icon-color"
                     size={36}
-                    onClick={toggleDrawer(false)}
+                    onClick={() => toggleDrawer(false)}
                   />
                 </div>
               </div>
@@ -103,11 +113,16 @@ const Header = () => {
               <ListItem
                 className="cursor-pointer"
                 key={tab.name}
-                href={tab.href}
+                onClick={() => handleNavigate(tab.href)}
               >
                 <ListItemText primary={tab.name} />
               </ListItem>
             ))}
+            {user && (
+              <ListItem>
+                <AdminMenu />
+              </ListItem>
+            )}
           </List>
         </Drawer>
       </div>

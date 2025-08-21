@@ -1,4 +1,5 @@
 "use client";
+import useNavigate from "@/hooks/useNavigate";
 import { AuthContext } from "@/providers/AuthContext";
 import { Menu, MenuItem, Modal } from "@mui/material";
 import { useContext, useState } from "react";
@@ -6,6 +7,7 @@ import { LuCircleUserRound } from "react-icons/lu";
 import SignInAndOutForm from "./SignInAndOutForm";
 
 const UserSettings = () => {
+  const { navigateTo } = useNavigate();
   const { user, logout } = useContext(AuthContext);
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
@@ -26,6 +28,7 @@ const UserSettings = () => {
 
   const handleLogout = () => {
     handleClose();
+    navigateTo("/");
     logout();
   };
   return (
