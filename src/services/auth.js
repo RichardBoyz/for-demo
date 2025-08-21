@@ -7,6 +7,7 @@ export const handleLogin = async (email, password) => {
     localStorage.setItem("sessionToken", user.getSessionToken());
     return user;
   } catch (error) {
+    console.log(error);
     throw new Error("登入失敗，請檢查信箱或密碼。");
   }
 };

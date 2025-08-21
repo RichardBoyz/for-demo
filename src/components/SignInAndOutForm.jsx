@@ -47,10 +47,10 @@ const SignInAndOutForm = ({ handleClose = () => {} }) => {
       </Tabs>
 
       <TabPanel value={value} index={0}>
-        <LoginForm />
+        <LoginForm onClose={handleClose} />
       </TabPanel>
       <TabPanel value={value} index={1}>
-        <SignUpForm />
+        <SignUpForm onClose={handleClose} />
       </TabPanel>
     </Box>
   );

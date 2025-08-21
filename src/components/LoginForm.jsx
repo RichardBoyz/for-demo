@@ -1,9 +1,10 @@
 "use client";
 
-import { handleLogin } from "@/services/auth";
-import { useState } from "react";
+import { AuthContext } from "@/providers/AuthContext";
+import { useContext, useState } from "react";
 
-const LoginForm = () => {
+const LoginForm = ({ onClose = () => {} }) => {
+  const { login } = useContext(AuthContext);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
@@ -13,8 +14,8 @@ const LoginForm = () => {
     setError(null);
 
     try {
-      await handleLogin(email, password);
-      // 導向主頁面或顯示成功訊息
+      await login(email, password);
+      onClose();
       console.log("登入成功！");
     } catch (err) {
       setError(err.message);

@@ -3,7 +3,7 @@
 import { handleRegistration } from "@/services/auth";
 import { useState } from "react";
 
-const SignUpForm = () => {
+const SignUpForm = ({ onClose = () => {} }) => {
   const [email, setEmail] = useState("");
   const [displayName, setDisplayName] = useState("");
   const [password, setPassword] = useState("");
@@ -26,7 +26,7 @@ const SignUpForm = () => {
 
     try {
       await handleRegistration(email, password, displayName);
-      console.log("註冊成功！");
+      onClose();
       // 可導向登入頁或主頁
     } catch (err) {
       setError(err.message);
