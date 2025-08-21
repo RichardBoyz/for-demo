@@ -1,13 +1,15 @@
 "use client";
 
+import useNavigate from "@/hooks/useNavigate";
 import { AuthContext } from "@/providers/AuthContext";
 import { useContext, useState } from "react";
 
-const LoginForm = ({ onClose = () => {} }) => {
+const LoginForm = ({ handleCloseNav = () => {}, onClose = () => {} }) => {
   const { login } = useContext(AuthContext);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
+  const { navigateTo } = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -16,7 +18,8 @@ const LoginForm = ({ onClose = () => {} }) => {
     try {
       await login(email, password);
       onClose();
-      console.log("登入成功！");
+      handleCloseNav();
+      navigateTo("/travel-spot");
     } catch (err) {
       setError(err.message);
     }
@@ -26,7 +29,7 @@ const LoginForm = ({ onClose = () => {} }) => {
   return (
     <form
       onSubmit={handleSubmit}
-      className="flex flex-col flex-1 justify-evenly h-full"
+      className="flex flex-col flex-1 justify-evenly h-full gap-6"
     >
       <div className="flex flex-col gap-6">
         <div className="flex flex-col gap-1">

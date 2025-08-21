@@ -6,7 +6,7 @@ import { useContext, useState } from "react";
 import { LuCircleUserRound } from "react-icons/lu";
 import SignInAndOutForm from "./SignInAndOutForm";
 
-const UserSettings = () => {
+const UserSettings = ({ handleNavBarClose = () => {} }) => {
   const { navigateTo } = useNavigate();
   const { user, logout } = useContext(AuthContext);
   const [anchorEl, setAnchorEl] = useState(null);
@@ -28,6 +28,7 @@ const UserSettings = () => {
 
   const handleLogout = () => {
     handleClose();
+    handleNavBarClose();
     navigateTo("/");
     logout();
   };
@@ -64,8 +65,11 @@ const UserSettings = () => {
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
-        <div className="absolute bg-slate-100 dark:bg-cyan-900 rounded-lg p-2 flex flex-col top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-4/5 h-2/3 md:w-1/2">
-          <SignInAndOutForm handleClose={handleModalClose} />
+        <div className="absolute bg-slate-100 dark:bg-cyan-900 rounded-lg p-2 flex flex-col top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-4/5 h-fit md:w-1/2">
+          <SignInAndOutForm
+            handleCloseNav={handleNavBarClose}
+            handleClose={handleModalClose}
+          />
         </div>
       </Modal>
     </div>

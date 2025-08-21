@@ -38,7 +38,7 @@ const SignUpForm = ({ onClose = () => {} }) => {
   return (
     <form
       onSubmit={handleSubmit}
-      className="flex flex-col flex-1 justify-evenly h-full"
+      className="flex flex-col flex-1 justify-evenly h-full gap-6"
     >
       <div className="flex flex-col gap-6">
         <div className="flex flex-col gap-1">

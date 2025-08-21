@@ -13,14 +13,16 @@ function TabPanel(props) {
       id={`full-width-tabpanel-${index}`}
       aria-labelledby={`full-width-tab-${index}`}
       {...other}
-      className="h-full"
     >
       {value === index && <Box sx={{ p: 3, height: "100%" }}>{children}</Box>}
     </div>
   );
 }
 
-const SignInAndOutForm = ({ handleClose = () => {} }) => {
+const SignInAndOutForm = ({
+  handleCloseNav = () => {},
+  handleClose = () => {},
+}) => {
   const [value, setValue] = useState(0);
 
   const handleChange = (event, newValue) => {
@@ -47,7 +49,7 @@ const SignInAndOutForm = ({ handleClose = () => {} }) => {
       </Tabs>
 
       <TabPanel value={value} index={0}>
-        <LoginForm onClose={handleClose} />
+        <LoginForm handleCloseNav={handleCloseNav} onClose={handleClose} />
       </TabPanel>
       <TabPanel value={value} index={1}>
         <SignUpForm onClose={handleClose} />

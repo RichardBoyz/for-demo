@@ -84,7 +84,7 @@ const Header = () => {
           slotProps={{
             paper: {
               sx: {
-                width: "40%",
+                width: "fit-content",
                 backgroundColor: "var(--nav-drawer-bg)",
               },
             },
@@ -95,8 +95,8 @@ const Header = () => {
             subheader={
               <div className="flex justify-between items-center px-4 h-header-height">
                 <div className="flex gap-1 items-center">
-                  <UserSettings />
-                  <ThemeToggle />{" "}
+                  <UserSettings handleNavBarClose={() => toggleDrawer(false)} />
+                  <ThemeToggle />
                 </div>
                 <div className="px-4 py-2">
                   <IoClose
